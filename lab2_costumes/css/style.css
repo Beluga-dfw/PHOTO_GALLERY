@@ -1,0 +1,1111 @@
+/* =====================================
+   style.css — Повний стиль для сайту
+   ===================================== */
+
+/* -------------------------------------
+   1. Базове скидання стилів
+   ------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  color: #333;
+  background-color: #f5f5f5;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+/* -------------------------------------
+   2. Заголовок сайту (header)
+   ------------------------------------- */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+  padding: 12px 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* 2.1. Логотип */
+.header__logo {
+  flex: 0 0 auto;
+}
+.header__logo h1,
+.header__logo a {
+  font-size: 2rem;        /* Збільшуємо розмір з 2.5rem → 3rem */
+  font-weight: 600;       /* Трохи жирніше */
+  color: #222;
+  margin: 0;
+  text-decoration: none;
+  line-height: 1;         /* Щоб не було додаткового вертикального простору */
+}
+
+/* Якщо у вас там просто <div class="header__logo">TEXT</div>, 
+   то можна так: */
+.header__logo {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #222;
+}
+/* 2.2. Контейнер правого блоку: пошук, мова, авторизація, кошик */
+.header__controls {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+/* -------------------------------------
+   3. Пошукова форма у шапці
+   ------------------------------------- */
+.header__search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 3.1. Поле вводу для пошуку */
+.header__search input[type="text"] {
+  width: 200px;                /* Задана ширина як у прикладі */
+  height: 36px;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 18px;         /* Пілюльна (pill) форма */
+  outline: none;
+  transition: border-color 0.2s;
+}
+.header__search input[type="text"]::placeholder {
+  color: #888;
+}
+.header__search input[type="text"]:focus {
+  border-color: #007bff;
+}
+
+/* 3.2. Випадаючий селект категорій */
+.header__search select {
+  height: 36px;
+  padding: 0 10px;
+  font-size: 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.header__search select:focus {
+  border-color: #007bff;
+}
+
+/* 3.3. Кнопка “Фільтр” */
+.header__search button {
+  height: 36px;
+  padding: 0 16px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.header__search button:hover {
+  background-color: #218838;
+}
+
+/* -------------------------------------
+   4. Селектор мови у шапці
+   ------------------------------------- */
+.header__lang {
+  position: relative;
+}
+.header__lang button {
+  background: none;
+  border: 1px solid #ccc;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #333;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+.header__lang button:hover {
+  background-color: #f0f0f0;
+  border-color: #999;
+}
+/* Приховане меню мов */
+.header__lang .lang-menu {
+  display: none;
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+  min-width: 100px;
+  z-index: 1010;
+}
+.header__lang .lang-menu.open {
+  display: block;
+}
+.header__lang .lang-menu a {
+  display: block;
+  text-decoration: none;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  color: #333;
+  transition: background-color 0.2s;
+}
+.header__lang .lang-menu a:hover {
+  background-color: #f0f0f0;
+}
+
+/* -------------------------------------
+   5. Блок авторизації / профілю / вихід
+   ------------------------------------- */
+.header__auth {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.header__auth button,
+.header__auth a {
+  background: none;
+  border: none;
+  color: #333;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 6px 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s, color 0.2s;
+}
+.header__auth button:hover,
+.header__auth a:hover {
+  background-color: #f0f0f0;
+  color: #007bff;
+}
+
+/* -------------------------------------
+   6. Кошик у шапці
+   ------------------------------------- */
+/* 2.1. Кнопка “Кошик” */
+.header__cart .cart-btn {
+  background-color: #fff;              /* чистий білий фон */
+  border: 1px solid #28a745;           /* тонка зелена рамка */
+  color: #28a745;                      /* зелений текст/ікона */
+  font-size: 1rem;                     /* трохи більший шрифт, ніж 0.9rem */
+  padding: 6px 12px;                   /* більше відступів */
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;                            /* відступ між текстом і іконою */
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+.header__cart .cart-btn i {
+  font-size: 1.1rem;                   /* ікона трохи більша за текст */
+}
+.header__cart .cart-btn:hover {
+  background-color: #28a745;           /* зелений фон при ховері */
+  color: #fff;                         /* білий текст/ікона */
+  border-color: #28a745;
+}
+/* Прихований випадаючий кошик */
+.header__cart .cart-dropdown {
+  display: none;
+  position: absolute;
+  top: 110%;
+  right: 0;
+  width: 300px;
+  max-height: 400px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow-y: auto;
+  z-index: 1010;
+}
+
+/* Коли JS додає клас .open — показуємо */
+.header__cart .cart-dropdown.open {
+  display: block;
+}
+/* Картинка у випадаючому кошику */
+.cart-dropdown__item-img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+/* Найменування товару */
+.cart-dropdown__item-name {
+  flex: 1;
+  font-size: 0.9rem;
+  color: #333;
+}
+/* Ціна товару */
+.cart-dropdown__item-price {
+  font-size: 0.9rem;
+  color: #007bff;
+  margin-right: 10px;
+}
+/* Кнопка видалення товару */
+.cart-dropdown__item-remove {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  color: #888;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.cart-dropdown__item-remove:hover {
+  color: #ff4d4f;
+}
+/* Порожній кошик */
+.cart-dropdown__empty {
+  padding: 12px;
+  text-align: center;
+  color: #777;
+  font-size: 0.9rem;
+}
+
+/* -------------------------------------
+   7. Фільтри (окремо від шапки, у контенті)
+   ------------------------------------- */
+.filters {
+  margin: 20px auto;
+  max-width: 1000px;
+  padding: 0 10px;
+}
+.filters form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.filters input[type="text"],
+.filters select {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  outline: none;
+}
+.filters input[type="text"]:focus,
+.filters select:focus {
+  border-color: #007bff;
+}
+.filters button {
+  background-color: #28a745;
+  border: none;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.filters button:hover {
+  background-color: #218838;
+}
+
+/* -------------------------------------
+   8. Сітка товарів та картки
+   ------------------------------------- */
+.products-grid {
+  width: 100%;
+  padding: 0 10px; /* або інший відступ з боків за потреби */
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* Картка товару */
+.product-card {
+  background-color: #ffffff;
+  border-radius: 4px; /* Менший радіус */
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ефект наведення */
+.product-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+}
+
+/* Контейнер зображення */
+.product-card__img-wrapper {
+  width: 100%;
+  background-color: #f0f0f0;
+  flex-shrink: 0;
+}
+.product-card__img-wrapper img,
+.product-card__img-wrapper a img {
+  width: 100%;
+  height: auto; /* Зображення не обрізаються */
+  display: block;
+}
+
+.product-card__info {
+  padding: 12px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.product-card__name {
+  font-size: 1rem;
+  margin-bottom: 6px;
+  color: #222;
+}
+.product-card__price {
+  font-size: 0.95rem;
+  color: #007bff;
+  font-weight: 600;
+}
+
+/* Знижка на картці */
+.product-card__badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #dc3545;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 4px 6px;
+  border-radius: 4px;
+}
+
+/* -------------------------------------
+   9. Модальні вікна (загальна стилізація)
+   ------------------------------------- */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.4);
+  display: none; /* За замовчуванням приховані */
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+.modal.open {
+  display: flex; /* Клас .open показує модалку */
+}
+.modal__content {
+  background-color: #fff;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  padding: 20px;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.modal__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: #999;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.modal__close:hover {
+  color: #333;
+}
+
+/* -------------------------------------
+   10. Стилі авторизації (login modal)
+   ------------------------------------- */
+#loginModal .modal__content {
+  max-width: 360px;
+  padding: 24px;
+}
+#loginModal h2 {
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+  color: #222;
+  text-align: center;
+}
+#loginModal .error {
+  color: #dc3545;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  text-align: center;
+}
+#loginModal form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+#loginModal label {
+  font-size: 0.9rem;
+  color: #333;
+  margin-bottom: 4px;
+}
+#loginModal input[type="email"],
+#loginModal input[type="password"] {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  width: 100%;
+  outline: none;
+}
+#loginModal input[type="email"]::placeholder,
+#loginModal input[type="password"]::placeholder {
+  color: #888;
+}
+#loginModal button[name="login_submit"] {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+#loginModal button[name="login_submit"]:hover {
+  background-color: #0056b3;
+}
+#loginModal .no_account,
+#loginModal .register_hint {
+  font-size: 0.85rem;
+  color: #555;
+  text-align: center;
+  margin-top: 6px;
+}
+
+/* =====================================
+   style.css — Повний стиль для сайту
+   (оновлено секції 11, 12, 13 та додано стилі
+    для кнопки “← Назад” і блоку “Відгуки”)
+   ===================================== */
+
+/* -------------------------------------
+   ... (Уся попередня частина без змін) ...
+   ------------------------------------- */
+
+/* -------------------------------------
+   11 Сторінка деталізації костюма — без «рамки»
+   ------------------------------------- */
+.costume-detail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  max-width: 1000px;
+  margin: 30px auto;
+
+  /* Видаляємо фон, тінь і заокруглення:
+     було: background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 20px; */
+  background-color: transparent;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+}
+
+.costume-detail__img {
+  flex: 1 1 400px;
+  background-color: transparent; /* прибираємо світло-сірий фон */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.costume-detail__img img {
+  width: 100%;
+  height: auto;
+  object-fit: contain; /* щоб не обрізати */
+  border-radius: 0;    /* прибираємо заокруглення */
+}
+
+.costume-detail__info {
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  color: #333;
+}
+
+.costume-detail__info h2 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.costume-detail__price {
+  font-size: 1.3rem;
+  color: #007bff;
+  font-weight: 600;
+}
+
+.costume-detail__info p {
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+
+.costume-detail__info strong {
+  color: #555;
+}
+
+/* Кнопка “Додати до кошика” (залишаємо, як було) */
+.button-add-to-cart {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  padding: 10px 14px;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  width: fit-content;
+  transition: background-color 0.2s;
+}
+
+.button-add-to-cart:disabled {
+  background-color: #84c99f;
+  cursor: not-allowed;
+}
+
+.button-add-to-cart:hover:not(:disabled) {
+  background-color: #218838;
+}
+
+/* Кнопка “Редагувати” (залишаємо, як було) */
+.button-edit {
+  background-color: #ffc107;
+  color: #222;
+  border: none;
+  padding: 10px 14px;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  width: fit-content;
+  transition: background-color 0.2s;
+}
+
+.button-edit:hover {
+  background-color: #e0a800;
+}
+
+/* -------------------------------------
+   Адаптивність: при вузьких екранах
+   ------------------------------------- */
+@media (max-width: 768px) {
+  .costume-detail {
+    flex-direction: column;
+    padding: 0; /* щоби не було відступів рамки */
+  }
+  .costume-detail__img,
+  .costume-detail__info {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+/* -------------------------------------
+   12. Модальне вікно редагування костюма
+   ------------------------------------- */
+#editModal .modal__content {
+  max-width: 500px;
+  padding: 24px;
+}
+#editModal h2 {
+  font-size: 1.5rem;
+  margin-bottom: 18px;
+  color: #222;
+  text-align: center;
+}
+#editModal .form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 14px;
+}
+#editModal .form-group label {
+  font-size: 0.9rem;
+  color: #333;
+  margin-bottom: 4px;
+}
+#editModal .form-group input[type="text"],
+#editModal .form-group input[type="number"],
+#editModal .form-group textarea {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  width: 100%;
+  outline: none;
+}
+#editModal .form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+#editModal button[name="update_costume"] {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 8px;
+}
+#editModal button[name="update_costume"]:hover {
+  background-color: #0056b3;
+}
+
+/* -------------------------------------
+   13. Хлібні крихти і кнопка “← Назад”
+   ------------------------------------- */
+.breadcrumbs {
+  margin: 20px auto;
+  max-width: 1000px;
+  padding: 0 10px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+}
+
+/* Тепер “Назад” — виглядає як кнопка */
+.breadcrumbs a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #000000;
+  padding: 6px 12px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background-color 0.2s, color 0.2s;
+}
+.breadcrumbs a i {
+  font-size: 1rem;
+}
+.breadcrumbs a:hover {
+  background-color: #b1b8bf;
+  color: #fff;
+  text-decoration: none;
+}
+
+/* -------------------------------------
+   14. Блок “Відгуки” (нова секція)
+   ------------------------------------- */
+.reviews-section {
+  margin: 40px auto;
+  max-width: 1000px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 20px 30px;
+}
+
+.reviews-section h3 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 1.4rem;
+  color: #222;
+}
+
+/* Форма додавання нового відгуку */
+.review-form {
+  margin-bottom: 24px;
+}
+.review-form label {
+  font-weight: 500;
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+  color: #333;
+}
+.review-form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 1rem;
+  resize: vertical;
+}
+.review-form button[name="submit_review"] {
+  margin-top: 8px;
+  background-color: #28a745;
+  color: #fff;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+}
+.review-form button[name="submit_review"]:hover {
+  background-color: #218838;
+}
+
+/* Список відгуків */
+.reviews-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+.single-review {
+  border-top: 1px solid #e0e0e0;
+  padding: 12px 0;
+}
+.single-review:first-child {
+  border-top: none;
+}
+.review-meta {
+  font-size: 0.85rem;
+  color: #555;
+  margin-bottom: 4px;
+}
+.review-user {
+  font-weight: 600;
+}
+.review-date {
+  margin-left: 1rem;
+  color: #888;
+}
+.review-content {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #333;
+}
+.no-reviews {
+  font-style: italic;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+/* -------------------------------------
+   15. Посилання (залишаємо як було)
+   ------------------------------------- */
+a {
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+a:hover {
+  color: #0056b3;
+}
+
+/* -------------------------------------
+   16. Футер (залишаємо як було)
+   ------------------------------------- */
+footer {
+  background-color: #ffffff;
+  padding: 20px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #777;
+  border-top: 1px solid #e0e0e0;
+}
+
+/* -------------------------------------
+   17. Адаптивні стилі (без змін)
+   ------------------------------------- */
+@media (max-width: 1024px) {
+  .header__controls {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .header__search input[type="text"] {
+    width: 160px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 12px;
+    padding: 12px 16px;
+  }
+  .header__logo {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .header__controls {
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .header__search {
+    width: 100%;
+    justify-content: center;
+  }
+  .header__search input[type="text"] {
+    width: 120px;
+  }
+  .header__lang,
+  .header__auth {
+    justify-content: center;
+  }
+  .costume-detail {
+    flex-direction: column;
+    padding: 16px;
+  }
+  .costume-detail__img,
+  .costume-detail__info {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+  #loginModal .modal__content,
+  #editModal .modal__content {
+    width: 90%;
+  }
+  .reviews-section {
+    padding: 16px 20px;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   0. Забираємо будь-який фон у контейнера вибору мови (lang-dropdown),
+      щоби він не підсвічувався “зеленим”.
+   ---------------------------------------------------------------------------- */
+.lang-dropdown {
+  background: none !important;
+  position: relative; /* щоб потім підключити випадаюче меню */
+  padding: 0;
+  margin: 0;
+}
+
+/* Сам елемент-кнопка, який показує поточну мову */
+.lang-dropdown button#langBtn {
+  background: none;
+  border: 1px solid #ccc;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #333;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+.lang-dropdown button#langBtn:hover {
+  background-color: #f0f0f0;
+  border-color: #999;
+}
+
+/* Сам список мов — прихований за замовчуванням */
+.lang-dropdown .lang-dropdown-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  min-width: 120px;
+  z-index: 1010;
+}
+.lang-dropdown .lang-dropdown-menu.open {
+  display: block;
+}
+.lang-dropdown .lang-dropdown-menu a {
+  display: block;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  color: #333;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+.lang-dropdown .lang-dropdown-menu a:hover {
+  background-color: #f0f0f0;
+}
+#langModal .modal__content {
+  max-width: 400px;          /* трохи ширше за замовчуванням */
+  padding: 30px 24px;        /* достатньо простору всередині */
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  background-color: #ffffff; /* біле тло */
+}
+
+#langModal .modal__content h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  text-align: center;
+  color: #222;
+}
+
+#langModal .modal-field {
+  margin-bottom: 20px;
+}
+
+#langModal label {
+  display: block;
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 6px;
+}
+
+#langModal select {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 0.95rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fafafa;
+  outline: none;
+  transition: border-color 0.2s;
+}
+#langModal select:focus {
+  border-color: #007bff;
+}
+
+#langModal .modal-btn-primary {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #000000; /* чорна кнопка “Підтвердити” */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  text-align: center;
+  margin-top: 8px;
+}
+#langModal .modal-btn-primary:hover {
+  background-color: #333333;
+}
+
+#langModal .modal__close {
+  font-size: 1.2rem;
+  color: #999;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+#langModal .modal__close:hover {
+  color: #333;
+}
+/* -------------------------------------
+   Змінюємо обгортку зображення, щоб стала прямокутною
+   ------------------------------------- */
+.product-card__img-wrapper {
+  width: 100%;
+  height: 240px;            /* зробили трохи вищою — виходить прямокутник  */
+  background-color: #f0f0f0;
+  overflow: hidden;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  flex-shrink: 0;
+}
+
+.product-card__img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;       /* зберігаємо заповнення блоку з обрізкою по краях */
+  display: block;
+}
+
+/* -------------------------------------
+   Змінюємо колір ціни на сірий
+   ------------------------------------- */
+.product-card__price {
+  font-size: 1rem;
+  color: #777;              /* тепер сірий (замість синього) */
+  font-weight: 600;
+}
+/* ==============================
+   СТИЛІ ДЛЯ profile.php
+   ============================== */
+
+main.main-content {
+  padding: 40px 20px;
+  /* max-width: 800px; */
+  /* margin: 0 auto; */
+  font-family: Arial, sans-serif;
+  color: #333;
+  line-height: 1.5;
+}
+
+main.main-content h1 {
+  font-size: 2rem;
+  margin-bottom: 24px;
+  font-weight: 600;
+  color: #222;
+  text-align: center;
+}
+
+.profile-field {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.profile-field label {
+  width: 180px;
+  font-weight: 600;
+  color: #555;
+}
+.profile-field span {
+  flex: 1;
+  color: #111;
+  margin-left: 8px;
+}
+
+.back-link {
+  margin-top: 32px;
+  text-align: center;
+}
+.back-link a {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 1rem;
+}
+.back-link a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .profile-field {
+    flex-direction: column;
+  }
+  .profile-field label {
+    width: 100%;
+    margin-bottom: 4px;
+  }
+}
+
